@@ -6,6 +6,11 @@ if (empty($_SESSION['csrf'])) {
 }
 $csrf   = $_SESSION['csrf'];
 $active = 'contact'; // highlights "Contact Us" in the shared header
+
+// If logged in, pull from session
+$loggedIn     = !empty($_SESSION['account_id']);
+$prefillName  = $loggedIn ? ($_SESSION['account_name'] ?? '') : '';
+$prefillEmail = $loggedIn ? ($_SESSION['account_email'] ?? '') : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,29 +44,44 @@ $active = 'contact'; // highlights "Contact Us" in the shared header
           <p><strong>Email</strong> <a href="mailto:ask@koi.edu.au">ask@koi.edu.au</a></p>
         </aside>
 
-        <form action="backend/submit_contact.php" method="post" novalidate aria-labelledby="form-title">
+        <form action="backend/submit_contact.php" method="post" aria-labelledby="form-title">
           <fieldset>
             <legend id="form-title">Send a Message</legend>
 
             <!-- CSRF -->
-            <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($csrf, ENT_QUOTES); ?>" />
+            <input type="hidden" name="csrf" value="<?= htmlspecialchars($csrf, ENT_QUOTES) ?>" />
 
-            <!-- Honeypot (spam trap) -->
+            <!-- Honeypot -->
             <input id="website" name="website" type="text" value="" tabindex="-1" autocomplete="off"
                    aria-hidden="true"
                    style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;" />
 
+            <!-- Full Name -->
             <label for="name">Full Name</label>
-            <input id="name" name="name" type="text" required autocomplete="name" placeholder="Your name" />
+            <input id="name" name="name" type="text"
+                   value="<?= htmlspecialchars($prefillName, ENT_QUOTES) ?>"
+                   <?= $loggedIn ? 'readonly' : '' ?>
+                   required minlength="2" maxlength="100"
+                   placeholder="Your name" />
 
+            <!-- Email -->
             <label for="email">Email Address</label>
-            <input id="email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="you@example.com" />
+            <input id="email" name="email" type="email"
+                   value="<?= htmlspecialchars($prefillEmail, ENT_QUOTES) ?>"
+                   <?= $loggedIn ? 'readonly' : '' ?>
+                   required placeholder="you@example.com" />
 
+            <!-- Subject -->
             <label for="subject">Subject</label>
-            <input id="subject" name="subject" type="text" required placeholder="Subject" />
+            <input id="subject" name="subject" type="text"
+                   required minlength="3" maxlength="150"
+                   placeholder="Subject" />
 
+            <!-- Message -->
             <label for="message">Message</label>
-            <textarea id="message" name="message" rows="6" required placeholder="How can we help?"></textarea>
+            <textarea id="message" name="message" rows="6"
+                      required minlength="10" maxlength="1000"
+                      placeholder="How can we help?"></textarea>
 
             <button type="submit" class="btn-accent">Send</button>
           </fieldset>
@@ -70,7 +90,6 @@ $active = 'contact'; // highlights "Contact Us" in the shared header
     </main>
 
     <?php include __DIR__ . '/partials/footer.php'; ?>
-
     <script src="js/script.js"></script>
   </body>
 </html>

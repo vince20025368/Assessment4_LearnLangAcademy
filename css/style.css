@@ -117,8 +117,8 @@ section {
   padding: 0.8rem 1rem;
 }
 .site-logo {
-  width: 44px;
-  height: 44px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(13, 64, 97, 0.15);
@@ -540,94 +540,153 @@ section {
   }
 }
 
-/************* PRICING *************/
+/************* NEW PRICING (pr- namespace, no <div>) *************/
 
-/* Grid: 1 → 2 → 3 columns */
-.pricing-grid {
+/* Sections inherit your global section sizing already */
+
+/* Hero */
+.pr-hero {
+  text-align: center;
+  background: radial-gradient(
+      1200px 360px at -10% -40%,
+      rgba(13, 64, 97, 0.08),
+      transparent 70%
+    ),
+    radial-gradient(
+      900px 300px at 110% -30%,
+      rgba(241, 183, 125, 0.15),
+      transparent 65%
+    );
+  border-bottom: 1px solid var(--border);
+}
+.pr-hero h1 {
+  margin: 0 0 0.5rem;
+  color: var(--brand-900);
+  font-size: clamp(2.1rem, 4.1vw, 3rem);
+}
+.pr-muted {
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Billing toggle (pure CSS, separate section so radios can affect .pr-plans) */
+.pr-toggle fieldset {
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  position: relative;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+.pr-toggle form {
   display: grid;
-  grid-template-columns: 1fr;
+  justify-content: center;
+}
+.pr-toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.pr-toggle label {
+  position: relative;
+  z-index: 1;
+  font-weight: 800;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #122033;
+}
+.pr-save {
+  color: #065f46;
+  font-weight: 800;
+}
+.pr-track {
+  position: absolute;
+  inset: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(13, 64, 97, 0.06),
+    rgba(241, 183, 125, 0.1)
+  );
+}
+#bill-monthly:checked ~ .pr-plans .pr-py {
+  display: none;
+}
+#bill-monthly:checked ~ .pr-plans .pr-pm {
+  display: inline;
+}
+#bill-yearly:checked ~ .pr-plans .pr-pm {
+  display: none;
+}
+#bill-yearly:checked ~ .pr-plans .pr-py {
+  display: inline;
+}
+
+/* Plans grid */
+.pr-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
   gap: 1.25rem;
-  max-width: var(--max); /* same as other sections */
-  margin: 0 auto; /* centered */
-  padding: 2.75rem 1rem; /* match section spacing */
+  grid-template-columns: 1fr;
 }
 @media (min-width: 640px) {
-  .pricing-grid {
+  .pr-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (min-width: 1024px) {
-  .pricing-grid {
+  .pr-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Cards */
-.pricing-card {
+/* Plan card */
+.pr-plan {
   background: #fff;
-  border: 1px solid #e6ebf2;
+  border: 1px solid var(--border);
   border-radius: 16px;
+  box-shadow: var(--shadow);
   padding: 1.5rem 1.25rem;
-  box-shadow: 0 1px 0 rgba(17, 24, 39, 0.02);
-  display: flex;
-  flex-direction: column;
-  min-height: 360px; /* keeps rows even */
-  transition: transform 0.18s ease, box-shadow 0.18s ease,
-    border-color 0.18s ease;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  align-content: start;
+  gap: 1rem;
+  position: relative;
 }
-.pricing-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(13, 64, 97, 0.1);
-  border-color: rgba(13, 64, 97, 0.25);
-}
-
-/* Plan name */
-.pricing-card h3 {
-  margin: 0 0 0.25rem;
-  font-size: 1.05rem;
+.pr-head h2 {
+  margin: 0 0 0.2rem;
+  font-size: 1.15rem;
   font-weight: 800;
-  color: var(--brand-900, #003d99);
-  letter-spacing: 0.2px;
+  color: var(--brand-900);
 }
-
-/* Price */
-.pricing-card .price {
-  margin: 0.1rem 0 1rem;
-  font-size: 1.65rem;
+.pr-tag {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 600;
+}
+.pr-price {
+  margin: 0.35rem 0 0;
   font-weight: 900;
+  font-size: 1.8rem;
   color: #111827;
 }
-
-/* Features list */
-.pricing-card ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  color: var(--muted, #5f6b7a);
-  line-height: 1.6;
-}
-.pricing-card li {
-  display: grid;
-  grid-template-columns: 20px 1fr;
-  align-items: start;
-  gap: 0.5rem;
-  padding: 0.35rem 0;
-  border-top: 1px dashed #edf1f7;
-}
-.pricing-card li:first-child {
-  border-top: 0;
+.pr-cycle {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #374151;
+  margin-left: 0.25rem;
 }
 
-/* Simple check bullet */
-.pricing-card li::before {
-  content: "✓";
-  font-weight: 900;
-  color: #10b981; /* emerald */
-  line-height: 1;
-}
-
-/* Featured (middle) plan highlight – targets the 2nd card without changing HTML */
-.pricing-grid .pricing-card:nth-child(2) {
+/* Featured plan */
+.pr-featured {
   border-color: #cdddf6;
   background: radial-gradient(
       600px 200px at 110% -30%,
@@ -641,32 +700,116 @@ section {
     ),
     #fff;
   box-shadow: 0 14px 34px rgba(13, 64, 97, 0.12);
-  transform: translateY(-4px);
+  transform: translateY(-2px);
 }
-.pricing-grid .pricing-card:nth-child(2) .price {
-  color: var(--brand-900, #003d99);
-}
-
-/* Optional "Most Popular" badge on the featured card (auto-added) */
-.pricing-grid .pricing-card:nth-child(2)::before {
-  content: "Most Popular";
-  display: inline-block;
-  align-self: center;
-  margin-bottom: 0.75rem;
-  padding: 0.2rem 0.6rem;
+.pr-badge {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.3px;
-  color: #0d4061;
+  color: var(--brand);
   background: #eaf4ff;
   border: 1px solid #cfe6ff;
   border-radius: 999px;
+  padding: 0.2rem 0.6rem;
 }
 
-/* Spacing if you add a CTA later (button or link) */
-.pricing-card .btn,
-.pricing-card a.btn {
-  margin-top: auto; /* sticks CTA to the bottom */
+/* Features */
+.pr-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.pr-features li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 0.5rem;
+  align-items: start;
+  padding: 0.35rem 0;
+  border-top: 1px dashed #edf1f7;
+}
+.pr-features li:first-child {
+  border-top: 0;
+}
+.pr-features li::before {
+  content: "✓";
+  color: #10b981;
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* Buttons */
+.pr-btn {
+  display: inline-block;
+  padding: 0.9rem 1.2rem;
+  border-radius: 999px;
+  font-weight: 800;
+  border: 2px solid transparent;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s;
+}
+.pr-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(13, 64, 97, 0.18);
+}
+.pr-btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-900) 100%);
+  box-shadow: 0 10px 22px rgba(13, 64, 97, 0.18);
+}
+.pr-btn-ghost {
+  color: var(--brand-900);
+  background: #fff;
+  border-color: var(--brand);
+}
+
+/* CTA + notes */
+.pr-cta {
+  margin: 0;
+}
+.pr-note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* FAQ */
+.pr-faq h2 {
+  margin: 0 0 1rem;
+  color: var(--brand-900);
+  font-size: 1.4rem;
+}
+.pr-qa {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+.pr-qa h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+  color: #111827;
+}
+.pr-qa p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Helpers */
+.pr-visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  overflow: hidden !important;
 }
 
 /* ===== CONTACT PAGE ===== */
@@ -801,10 +944,13 @@ form textarea:focus {
   }
 }
 
-/* ====== AUTH (Login / Register) ====== */
+/* =========================================
+   AUTH (Login + Register) — unified sizing
+   ========================================= */
+
 .auth-hero {
   text-align: center;
-  padding: 2.75rem 1rem; /* match other sections */
+  padding: 2.75rem 1rem; /* same as other sections */
   max-width: var(--max);
   margin: 0 auto;
 }
@@ -814,30 +960,26 @@ form textarea:focus {
   font-weight: 700;
   color: var(--brand-900);
 }
-.auth-hero p {
+.auth-hero .muted,
+.auth-hero p.muted {
   color: var(--muted);
   margin: 0;
 }
 
-.form-error {
-  color: #b91c1c;
-  font-weight: 600;
-  margin: 0.5rem 0;
-}
-
-/* wrap behaves like section */
+/* Wrapper behaves like your standard section */
 .auth-wrap {
   display: flex;
   justify-content: center;
-  padding: 2.75rem 1rem; /* same spacing as other sections */
-  max-width: var(--max);
-  margin: 0 auto;
+  align-items: flex-start;
+  padding: 2.75rem 1rem; /* identical to other sections */
+  max-width: var(--max); /* identical container width */
+  margin: 0 auto; /* centered within page */
 }
 
-/* card style */
+/* The form “card” */
 .auth-card {
   width: 100%;
-  max-width: 480px;
+  max-width: 480px; /* matches both login & registration */
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -846,32 +988,37 @@ form textarea:focus {
   animation: fadeUp 0.25s ease-out;
 }
 
-/* form elements */
+/* Form controls */
 .auth-card label {
   display: block;
   margin: 1rem 0 0.3rem;
   font-weight: 600;
   color: #1f2937;
-  text-align: left; /* keep labels aligned left */
+  text-align: left;
 }
-.auth-card input {
+.auth-card input,
+.auth-card textarea {
   width: 100%;
   padding: 0.8rem 1rem;
   border: 1px solid #d1d5db;
   border-radius: 10px;
   font-size: 1rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #fafafa;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  margin: 0 0 1rem;
 }
-.auth-card input:focus {
+.auth-card input:focus,
+.auth-card textarea:focus {
   border-color: var(--brand);
   outline: none;
+  background: #fff;
   box-shadow: 0 0 0 3px rgba(13, 64, 97, 0.2);
 }
 
-/* button */
+/* Submit button */
 .btn-auth {
   width: 100%;
-  margin-top: 1.3rem;
+  margin-top: 0.6rem;
   padding: 0.9rem 1.2rem;
   border: 0;
   border-radius: 999px;
@@ -891,7 +1038,7 @@ form textarea:focus {
   box-shadow: 0 6px 14px rgba(13, 64, 97, 0.18);
 }
 
-/* link text */
+/* Under-form helper link */
 .auth-card p {
   margin-top: 1rem;
   text-align: center;
@@ -904,7 +1051,59 @@ form textarea:focus {
   text-decoration: underline;
 }
 
-/* animation */
+/* Messages (no <div>) */
+.form-error,
+.form-success {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  margin: 0 0 1rem;
+  font-weight: 600;
+}
+.form-error {
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+}
+.form-error ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+.form-success {
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  color: #166534;
+}
+
+/* Honeypot (fully hidden & non-interactive) */
+input.hp {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  pointer-events: none !important;
+  left: -9999px !important;
+  top: auto !important;
+}
+
+/* Visually hidden utility (for legends/titles) */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Entrance */
 @keyframes fadeUp {
   from {
     transform: translateY(10px);
@@ -916,39 +1115,761 @@ form textarea:focus {
   }
 }
 
-/* Honeypot anti-spam field */
-input.hp {
-  position: absolute !important;
-  left: -9999px !important;
-  top: auto !important;
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
+/* ===== Sidebar (your existing styles) ===== */
+.side-panel {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  position: sticky;
+  align-self: start;
 }
-
-.form-error {
-  background: #fee2e2;
-  border: 1px solid #fca5a5;
-  color: #b91c1c;
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  font-weight: 600;
+.side-nav {
+  width: 100%;
 }
-
-.form-error ul {
+.side-heading {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6b7b8a;
+}
+.side-menu {
+  list-style: none;
   margin: 0;
-  padding-left: 1.2rem;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+.side-link {
+  display: block;
+  position: relative;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #122033;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease,
+    transform 0.06s ease;
+}
+.side-link::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 4px;
+  height: 0;
+  background: transparent;
+  border-radius: 3px;
+  transform: translateY(-50%);
+  transition: height 0.15s ease, background-color 0.15s ease;
+}
+.side-link:hover::before {
+  height: 16px;
+  background: #c8d9e6;
+}
+.side-link:hover {
+  background: #f3f7fb;
+  color: #0d4061;
+}
+.side-link.is-active {
+  background: #0d4061;
+  color: #fff;
+}
+.side-link.is-active::before {
+  height: 18px;
+  background: #94c2df;
+}
+.side-sep {
+  border: none;
+  border-top: 1px solid #eef3f8;
+  margin: 0.75rem 0;
+}
+.logout-form {
+  margin: 0;
+  display: block;
+}
+.side-link.danger {
+  color: #8b1d1d;
+}
+.side-link.danger:hover {
+  background: #fff5f4;
+  color: #8b1d1d;
+}
+.side-link.danger.nojs {
+  appearance: none;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.side-link.danger.nojs:hover {
+  background: #fff5f4;
+}
+.side-link:focus-visible {
+  outline: 3px solid #94c2df;
+  outline-offset: 2px;
+  border-radius: 10px;
 }
 
-.form-success {
-  background: #dcfce7;
-  border: 1px solid #86efac;
-  color: #166534;
-  padding: 0.8rem 1rem;
+/* Layout: 80% centered, sidebar left, content right */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1fr 3fr; /* sidebar 25%, content 75% */
+  width: 80%;
+  margin: 0 auto;
+  gap: 1.5rem;
+}
+
+/* Content fills its track */
+.dashboard-content {
+  display: grid;
+  gap: 1.25rem;
+  width: 100%;
+  min-width: 0;
+  justify-items: stretch; /* force children to expand */
+}
+
+/* All cards span full width */
+.dash3-card {
+  background: #fff;
+  border: 1px solid #e6ecf3;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(13, 64, 97, 0.06);
+  padding: 1rem 1.25rem;
+  display: grid;
+  gap: 0.75rem;
+
+  width: 100%;
+  max-width: none;
+  justify-self: stretch;
+  box-sizing: border-box;
+}
+
+/* KPI grid container (still one big card) */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  width: 100%;
+  text-align: center; /* center text by default */
+}
+
+/* Each KPI block looks like a mini card */
+.kpi-grid .kpi {
+  border: 1px solid #e6ecf3;
   border-radius: 8px;
-  margin-bottom: 1rem;
+  padding: 1rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center content horizontally */
+  justify-content: center; /* center vertically if possible */
+}
+
+/* KPI text */
+.kpi-num {
+  font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+  font-weight: 800;
+  color: #0d4061;
+  margin: 0 0 0.3rem 0;
+}
+.kpi-sub {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.88rem;
+}
+.kpi-mini {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  font-size: 0.8rem;
+  color: #4b5b6b;
+}
+
+/* Make charts fill the card width */
+#enrollLine,
+#accountsPie {
+  display: block;
+  width: 100% !important; /* stretch to full card width */
+  height: auto; /* keep aspect ratio */
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+    width: 94%;
+  }
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 760px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Make dashboard-content act the same across pages (fill 3/4 track) */
+.dashboard-content {
+  display: grid;
+  gap: 1.25rem;
+  width: 100%;
+  min-width: 0;
+  justify-items: stretch;
+}
+.dashboard-content .dash3-card {
+  width: 100%;
+  max-width: none;
+  justify-self: stretch;
+  box-sizing: border-box;
+}
+
+/* ================= Search (unchanged core) ================= */
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+}
+.search-form label {
+  font-size: 1rem;
+  font-weight: 500;
+
+  margin-bottom: 20px;
+}
+.search-form .search-input,
+.search-form input[type="search"] {
+  flex: 1 1 auto;
+  height: 36px;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid #e6ecf3;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.95rem;
+}
+.btn,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0.4rem 0.9rem;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.2;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+
+  margin-bottom: 15px;
+
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.btn {
+  background: #0d4061;
+  color: #fff;
+  border: 1px solid #0d4061;
+}
+.btn:hover {
+  background: #0b3552;
+}
+.btn-ghost {
+  background: #fff;
+  color: #0d4061;
+  border: 1px solid #e6ecf3;
+}
+.btn-ghost:hover {
+  background: #f5f9fc;
+}
+
+/* ================= Table ================= */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.table thead th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
   font-weight: 600;
+  color: #122033;
+  border-bottom: 2px solid #e6ecf3;
+  background: #f9fbfd;
+}
+.table th,
+.table td {
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  vertical-align: middle;
+  border-top: 1px solid #f1f5f9;
+}
+.table tbody tr {
+  background: #fff;
+  transition: background 0.15s ease;
+}
+.table tbody tr:hover {
+  background: #f5f9fc;
+}
+.actions-cell {
+  white-space: nowrap;
+  padding-left: 0.4rem;
+  padding-right: 0;
+}
+
+/* ================= Pagination ================= */
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+.pager-btn,
+.pager-page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e6ecf3;
+  background: #fff;
+  color: #0d4061;
+  text-decoration: none;
+  font-weight: 500;
+}
+.pager-btn:hover,
+.pager-page:hover {
+  background: #f5f9fc;
+}
+.pager-page.is-current {
+  background: #0d4061;
+  color: #fff;
+  border-color: #0d4061;
+  pointer-events: none;
+}
+.pager-btn.is-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.pager-gap {
+  padding: 0 0.3rem;
+  color: #6b7280;
+}
+.pager-info {
+  margin-left: auto;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+/* ================= Toggles (Active? & Verified) ================= */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 22px;
+  vertical-align: middle;
+}
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.toggle .slider {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  background: #dc3545;
+  border-radius: 22px;
+  transition: 0.3s;
+}
+.toggle .slider::before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 3px;
+  top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+/* On (checked) */
+.toggle input:checked + .slider {
+  background: #198754;
+}
+.toggle input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
+/* Verified toggle colors: amber off, blue on (to distinguish from Active) */
+.toggle--verify .slider {
+  background: #f59e0b;
+} /* amber when OFF */
+.toggle--verify input:checked + .slider {
+  background: #2563eb;
+} /* blue when ON */
+
+/* ================= Icon-only action buttons ================= */
+.btn-action {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d4061;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.btn-action:hover {
+  background: #0b3552;
+}
+.btn-action img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* Delete button variant (danger) */
+.btn-action--danger {
+  background: #dc3545;
+  border-color: #dc3545;
+}
+.btn-action--danger:hover {
+  background: #b02a37;
+}
+
+.add-user-form .form-row {
+  display: grid;
+  gap: 0.5rem; /* space between label and input */
+  margin: 0; /* no extra margin */
+  padding: 0; /* no padding */
+}
+
+.add-user-form select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #cfd8e3;
+  border-radius: 6px;
+  font-family: inherit; /* ✅ match other inputs */
+  font-size: 0.95rem; /* ✅ same font size */
+  font-weight: 400; /* ✅ same weight */
+  color: #0d4061;
+  background: #fff;
+  box-sizing: border-box;
+  appearance: none; /* remove native styles */
+}
+
+/* ===== Small Alerts ===== */
+.alert {
+  padding: 0.35rem 0.6rem; /* very slim padding */
+  border-radius: 4px;
+  margin-bottom: 0.5rem; /* tighter spacing below */
+  font-size: 0.8rem; /* smaller text */
+  line-height: 1.2; /* compact lines */
+}
+
+.alert-success {
+  background: #edfdf4;
+  color: #207245;
+  border: 1px solid #b7ebc6;
+}
+
+.alert-danger {
+  background: #fff5f5;
+  color: #a11b1b;
+  border: 1px solid #f5c2c0;
+}
+
+.alert ul {
+  margin: 0.2rem 0 0; /* almost no spacing */
+  padding-left: 0.9rem; /* tighter indent */
+}
+
+.add-user-form .form-actions {
+  padding-bottom: 10px; /* ✅ extra space below buttons */
+}
+
+/* Generic form row */
+.form-row {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+/* Two columns in one line */
+.form-row.two-cols {
+  display: flex;
+  gap: 1rem; /* space between the two columns */
+}
+
+.form-row.two-cols label {
+  flex: 1; /* each label+input pair takes 50% */
+  display: flex;
+  flex-direction: column; /* label text on top, input below */
+}
+
+/* Input/textarea styling similar to your search box */
+.form-row input[type="text"],
+.form-row input[type="email"],
+.form-row input[type="password"],
+.form-row select,
+.form-row textarea {
+  height: 36px;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid #e6ecf3;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+/* Textareas taller */
+.form-row textarea {
+  height: auto;
+  resize: vertical;
+}
+.inquiry-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; /* centers icon + text */
+  gap: 4px;
+  font-size: 0.85rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  min-width: 100px; /* 🔑 fixed width (adjust as needed) */
+  text-align: center;
+}
+
+.inquiry-badge img.icon-inquiry {
+  width: 14px;
+  height: 14px;
+}
+
+.inquiry-badge.non-user {
+  background: #fff3cd; /* light yellow */
+  color: #856404;
+}
+
+.inquiry-badge.registered {
+  background: #d4edda; /* light green */
+  color: #155724;
+}
+
+/* Center specific column (enrolled students) */
+.table .center-col {
+  text-align: center;
+}
+
+/* Manage Enrollments full button */
+.btn-manage {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: #0d4061;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+.btn-manage:hover {
+  background: #092c44;
+}
+.btn-manage .icon-manage {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) invert(1);
+}
+
+.add-user-form label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1f2937;
+  margin: 0; /* remove block margin */
+  white-space: nowrap; /* prevent label from breaking line */
+}
+
+.add-user-form select {
+  flex: 1; /* take remaining space */
+  min-width: 240px;
+  height: 36px;
+}
+
+.add-user-form .btn {
+  flex-shrink: 0; /* button keeps natural size */
+  height: 36px;
+  margin-bottom: 0; /* ✅ ensure it aligns perfectly */
+}
+
+/* Status dropdown inside table rows */
+.table select {
+  width: auto; /* only as wide as content */
+  min-width: 120px;
+  height: 32px;
+  padding: 0.3rem 1.6rem 0.3rem 0.5rem;
+  font-size: 0.85rem;
+  border: 1px solid #e6ecf3;
+  border-radius: 6px;
+  background: #fff
+    url("data:image/svg+xml;utf8,<svg fill='%230d4061' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>")
+    no-repeat right 0.5rem center/14px;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.table select:hover {
+  border-color: var(--brand);
+}
+
+.table select:focus {
+  border-color: var(--brand);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(13, 64, 97, 0.15);
+}
+
+/* Back button style (force overrides) */
+.back-btn {
+  display: inline-block !important;
+  margin-top: 0.5rem !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 6px !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  background-color: #0d4061 !important; /* 🔑 force deep blue background */
+  border: 1px solid #0d4061 !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+
+.back-btn:hover {
+  background-color: #092c43 !important; /* 🔑 darker on hover */
+  color: #fff !important;
+}
+
+/* Enrollment Add User form (scoped) */
+.enrollment-add-form {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.enrollment-add-form label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1f2937;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.enrollment-add-form select {
+  flex: 1;
+  min-width: 240px;
+  height: 36px;
+}
+
+.enrollment-add-form .btn {
+  flex-shrink: 0;
+  height: 36px;
+  margin-bottom: 0;
+}
+
+/* Enrollment Add User dropdown */
+.enrollment-add-form select {
+  flex: 1;
+  min-width: 240px;
+  height: 36px;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid #e6ecf3;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--brand);
+
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.enrollment-add-form select:hover,
+.table select:hover {
+  border-color: var(--brand);
+}
+
+.enrollment-add-form select:focus,
+.table select:focus {
+  border-color: var(--brand);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(13, 64, 97, 0.15);
+}
+
+.dash3-card canvas {
+  display: block;
+  width: 100% !important;
+  height: auto !important; /* scales proportionally */
+  max-width: 100%;
+}
+
+/* ===== User Dashboard: Enrollment Dropdown ===== */
+.user-enroll-form {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.user-enroll-form label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #122033;
+}
+
+.user-enroll-form select {
+  flex: 1;
+  min-width: 240px;
+  height: 36px;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid #e6ecf3;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--brand);
+
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff;
+}
+
+.user-enroll-form select:hover,
+.user-enroll-form select:focus {
+  border-color: var(--brand);
+}
+
+.user-enroll-form select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(13, 64, 97, 0.15);
+}
+
+.user-enroll-form .btn {
+  margin-bottom: 0;
+  white-space: nowrap;
 }

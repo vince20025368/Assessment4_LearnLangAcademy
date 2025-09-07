@@ -1,18 +1,18 @@
 <?php
-// register.php
+// registration.php
 session_start();
 if (empty($_SESSION['csrf'])) {
   $_SESSION['csrf'] = bin2hex(random_bytes(32));
 }
 $csrf   = $_SESSION['csrf'];
-$active = 'login';
+$active = 'login'; // or 'register' if your header supports it
 
-// Grab validation errors + old values from session (set in backend/register.php)
+// Validation results (set in backend/register.php)
 $errors  = $_SESSION['reg_errors'] ?? [];
 $old     = $_SESSION['old'] ?? [];
 $success = $_SESSION['reg_success'] ?? null;
 
-// Clear them after displaying
+// Clear after reading
 unset($_SESSION['reg_errors'], $_SESSION['old'], $_SESSION['reg_success']);
 ?>
 <!DOCTYPE html>
@@ -22,56 +22,60 @@ unset($_SESSION['reg_errors'], $_SESSION['old'], $_SESSION['reg_success']);
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Create Account | LearnLang Academy</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
 </head>
 <body class="site">
+  <a class="skip-link" href="#main">Skip to content</a>
   <?php include __DIR__ . '/partials/header.php'; ?>
 
   <main id="main" class="site-main">
-    <section class="auth-hero">
-      <h1>Create Account</h1>
+    <section class="auth-hero" aria-labelledby="reg-title">
+      <h1 id="reg-title">Create Account</h1>
       <p class="muted">Join LearnLang Academy and start learning today.</p>
     </section>
 
-    <section class="auth-wrap">
+    <section class="auth-wrap" aria-labelledby="form-title">
       <form class="auth-card" action="backend/register.php" method="post" novalidate>
         <input type="hidden" name="csrf" value="<?= htmlspecialchars($csrf, ENT_QUOTES) ?>" />
-        <input type="text" name="website" class="hp" autocomplete="off" />
+        <input type="text" name="website" class="hp" autocomplete="off" aria-hidden="true" />
 
-        <!-- Global messages -->
         <?php if ($errors): ?>
-          <div class="form-error" role="alert">
+          <section class="form-error" role="alert" aria-live="polite">
             <ul>
               <?php foreach ($errors as $msg): ?>
                 <li><?= htmlspecialchars($msg) ?></li>
               <?php endforeach; ?>
             </ul>
-          </div>
+          </section>
         <?php elseif ($success): ?>
-          <div class="form-success" role="status">
+          <p class="form-success" role="status" aria-live="polite">
             <?= htmlspecialchars($success) ?>
-          </div>
+          </p>
         <?php endif; ?>
 
-        <!-- Full Name -->
-        <label for="name">Full Name</label>
-        <input id="name" name="name" type="text" 
-               value="<?= htmlspecialchars($old['name'] ?? '') ?>" required />
+        <fieldset>
+          <legend id="form-title" class="visually-hidden">Create your account</legend>
 
-        <!-- Email -->
-        <label for="email">Email Address</label>
-        <input id="email" name="email" type="email" 
-               value="<?= htmlspecialchars($old['email'] ?? '') ?>" required />
+          <label for="name">Full Name</label>
+          <input id="name" name="name" type="text"
+                 value="<?= htmlspecialchars($old['name'] ?? '') ?>" required autocomplete="name" />
 
-        <!-- Password -->
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" required minlength="6" />
+          <label for="email">Email Address</label>
+          <input id="email" name="email" type="email"
+                 value="<?= htmlspecialchars($old['email'] ?? '') ?>" required
+                 autocomplete="email" inputmode="email" placeholder="you@example.com" />
 
-        <!-- Confirm Password -->
-        <label for="confirm_password">Confirm Password</label>
-        <input id="confirm_password" name="confirm_password" type="password" required minlength="6" />
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" required minlength="8"
+                 autocomplete="new-password" placeholder="Min. 8 characters" />
 
-        <button type="submit" class="btn-auth">Create Account</button>
-        <p>Already a member? <a href="login.php">Login</a></p>
+          <label for="confirm_password">Confirm Password</label>
+          <input id="confirm_password" name="confirm_password" type="password" required minlength="8"
+                 autocomplete="new-password" placeholder="Re-enter your password" />
+
+          <button type="submit" class="btn-auth">Create Account</button>
+          <p>Already a member? <a href="login.php">Login</a></p>
+        </fieldset>
       </form>
     </section>
   </main>

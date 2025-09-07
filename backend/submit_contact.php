@@ -27,6 +27,9 @@ $email   = trim($_POST['email'] ?? '');
 $subject = trim($_POST['subject'] ?? '');
 $message = trim($_POST['message'] ?? '');
 
+// If logged in, attach account_id
+$accountId = $_SESSION['account_id'] ?? null;
+
 if ($name === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || $subject === '' || $message === '') {
   header('Location: ../contact.php?err=1');
   exit;
@@ -34,17 +37,18 @@ if ($name === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || $subject === '
 
 // IDs
 $id      = uuidv4();
-$refCode = simple_ref('C'); // C + 7 random digits
+$refCode = simple_ref('C'); // C + random digits
 
 // Insert
-$sql = "INSERT INTO contact_inquiries (id, ref_code, name, email, subject, message)
-        VALUES (?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO contact_inquiries (id, account_id, ref_code, name, email, subject, message, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
   http_response_code(500);
   exit('Failed to prepare insert.');
 }
-$stmt->bind_param('ssssss', $id, $refCode, $name, $email, $subject, $message);
+$stmt->bind_param('sssssss', $id, $accountId, $refCode, $name, $email, $subject, $message);
+
 $ok = $stmt->execute();
 $stmt->close();
 

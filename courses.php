@@ -56,7 +56,7 @@ $active = 'courses';
 
         <ul class="language-list">
           <li>
-            <a href="tagalog.html" aria-label="View Tagalog course">
+            <a href="tagalog.php" aria-label="View Tagalog course">
               <figure>
                 <img src="images/flag-ph.png" alt="Flag of the Philippines" class="flag" />
                 <figcaption>Tagalog</figcaption>
@@ -65,7 +65,7 @@ $active = 'courses';
           </li>
 
           <li>
-            <a href="english.html" aria-label="View English course">
+            <a href="english.php" aria-label="View English course">
               <figure>
                 <img src="images/flag-au.png" alt="Flag of Australia" class="flag" />
                 <figcaption>English</figcaption>
@@ -74,7 +74,7 @@ $active = 'courses';
           </li>
 
           <li>
-            <a href="spanish.html" aria-label="View Spanish course">
+            <a href="spanish.php" aria-label="View Spanish course">
               <figure>
                 <img src="images/flag-es.png" alt="Flag of Spain" class="flag" />
                 <figcaption>Spanish</figcaption>
@@ -83,7 +83,7 @@ $active = 'courses';
           </li>
 
           <li>
-            <a href="danish.html" aria-label="View Danish course">
+            <a href="danish.php" aria-label="View Danish course">
               <figure>
                 <img src="images/flag-dk.png" alt="Flag of Denmark" class="flag" />
                 <figcaption>Danish</figcaption>
@@ -92,7 +92,7 @@ $active = 'courses';
           </li>
 
           <li>
-            <a href="nihonggo.html" aria-label="View Japanese course">
+            <a href="nihonggo.php" aria-label="View Japanese course">
               <figure>
                 <img src="images/flag-jp.png" alt="Flag of Japan" class="flag" />
                 <figcaption>Japanese (Nihongo)</figcaption>
@@ -101,7 +101,7 @@ $active = 'courses';
           </li>
 
           <li>
-            <a href="chinese.html" aria-label="View Chinese course">
+            <a href="chinese.php" aria-label="View Chinese course">
               <figure>
                 <img src="images/flag-cn.png" alt="Flag of China" class="flag" />
                 <figcaption>Chinese (Mandarin)</figcaption>
@@ -110,7 +110,7 @@ $active = 'courses';
           </li>
 
           <li>
-            <a href="french.html" aria-label="View French course">
+            <a href="french.php" aria-label="View French course">
               <figure>
                 <img src="images/flag-fr.png" alt="Flag of France" class="flag" />
                 <figcaption>French</figcaption>
@@ -119,7 +119,7 @@ $active = 'courses';
           </li>
 
           <li>
-            <a href="german.html" aria-label="View German course">
+            <a href="german.php" aria-label="View German course">
               <figure>
                 <img src="images/flag-de.png" alt="Flag of Germany" class="flag" />
                 <figcaption>German</figcaption>

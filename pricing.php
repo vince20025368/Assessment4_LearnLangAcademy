@@ -17,57 +17,120 @@ $active = 'pricing';
 
     <?php include __DIR__ . '/partials/header.php'; ?>
 
-    <!-- MAIN -->
     <main id="main" class="site-main">
-      <!-- TITLE -->
-      <section class="hero course-hero" aria-labelledby="pricing-title">
-        <article class="course-header">
-          <h1 id="pricing-title">Pricing Plans</h1>
-          <p class="tagline">
-            <em>Flexible and affordable plans to suit learners of all levels.</em>
-          </p>
-        </article>
+      <!-- HERO -->
+      <section class="pr-hero" aria-labelledby="pricing-title">
+        <header>
+          <h1 id="pricing-title">Simple, honest pricing</h1>
+          <p class="pr-muted"><em>Start free. Upgrade when you’re ready. Cancel anytime.</em></p>
+        </header>
       </section>
 
-      <!-- PRICING GRID -->
-      <section class="pricing-grid">
-        <article class="pricing-card">
-          <h3>Free</h3>
-          <p class="price">$0 / month</p>
-          <ul>
-            <li>Basic language access</li>
-            <li>Weekly practice sets</li>
-            <li>Limited progress tracking</li>
-          </ul>
-        </article>
+      <!-- BILLING TOGGLE (kept separate so radios can control the plans via CSS) -->
+      <section class="pr-toggle" aria-label="Billing period">
+        <form aria-labelledby="billing-legend">
+          <fieldset>
+            <legend id="billing-legend" class="pr-visually-hidden">Billing period</legend>
 
-        <article class="pricing-card">
-          <h3>Standard</h3>
-          <p class="price">$9.99 / month</p>
-          <ul>
-            <li>Full language library</li>
-            <li>Interactive lessons</li>
-            <li>Progress dashboard</li>
-            <li>Email support</li>
-          </ul>
-        </article>
+            <input type="radio" name="billing" id="bill-monthly" checked />
+            <label for="bill-monthly">Monthly</label>
 
-        <article class="pricing-card">
-          <h3>Pro</h3>
-          <p class="price">$19.99 / month</p>
-          <ul>
-            <li>All Standard features</li>
-            <li>1-on-1 coaching sessions</li>
-            <li>Downloadable materials</li>
-            <li>Completion certificates</li>
-            <li>Priority support</li>
-          </ul>
-        </article>
+            <input type="radio" name="billing" id="bill-yearly" />
+            <label for="bill-yearly">Yearly <small class="pr-save">Save 20%</small></label>
+
+            <span class="pr-track" aria-hidden="true"></span>
+          </fieldset>
+        </form>
+      </section>
+
+      <!-- PLANS -->
+      <section class="pr-plans" aria-label="Plans">
+        <ul class="pr-grid">
+          <li class="pr-plan">
+            <header class="pr-head">
+              <h2>Starter</h2>
+              <p class="pr-tag">Try the basics</p>
+              <p class="pr-price">
+                <span class="pr-pm">$0</span>
+                <span class="pr-py">$0</span>
+                <span class="pr-cycle">/ mo</span>
+              </p>
+            </header>
+            <ul class="pr-features">
+              <li>1 language course</li>
+              <li>Weekly practice sets</li>
+              <li>Basic progress tracking</li>
+              <li>Community forum</li>
+            </ul>
+            <p class="pr-cta"><a class="pr-btn pr-btn-ghost" href="contact.php">Get started</a></p>
+          </li>
+
+          <li class="pr-plan pr-featured" aria-label="Most popular">
+            <span class="pr-badge" aria-hidden="true">Most popular</span>
+            <header class="pr-head">
+              <h2>Growth</h2>
+              <p class="pr-tag">Build momentum</p>
+              <p class="pr-price">
+                <span class="pr-pm">$12.99</span>
+                <span class="pr-py">$9.99</span>
+                <span class="pr-cycle">/ mo</span>
+              </p>
+            </header>
+            <ul class="pr-features">
+              <li>All languages</li>
+              <li>Interactive lessons &amp; quizzes</li>
+              <li>Streaks &amp; goals</li>
+              <li>Progress dashboard</li>
+              <li>Email support</li>
+            </ul>
+            <p class="pr-cta"><a class="pr-btn pr-btn-primary" href="contact.php">Choose Growth</a></p>
+            <p class="pr-note">Yearly billing total: $119.88 charged once per year.</p>
+          </li>
+
+          <li class="pr-plan">
+            <header class="pr-head">
+              <h2>Pro</h2>
+              <p class="pr-tag">Go all-in</p>
+              <p class="pr-price">
+                <span class="pr-pm">$24.99</span>
+                <span class="pr-py">$19.99</span>
+                <span class="pr-cycle">/ mo</span>
+              </p>
+            </header>
+            <ul class="pr-features">
+              <li>1-on-1 coaching sessions</li>
+              <li>Downloadable materials</li>
+              <li>Completion certificates</li>
+              <li>Priority support</li>
+            </ul>
+            <p class="pr-cta"><a class="pr-btn pr-btn-ghost" href="contact.php">Go Pro</a></p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- FAQ -->
+      <section class="pr-faq" aria-label="Pricing FAQ">
+        <header>
+          <h2>Frequently asked questions</h2>
+        </header>
+        <ul class="pr-qa">
+          <li>
+            <h3>Can I cancel anytime?</h3>
+            <p>Yes. Cancel in account settings and keep access until the end of your current period.</p>
+          </li>
+          <li>
+            <h3>Do you offer student discounts?</h3>
+            <p>Yes. Verified students receive 25% off Growth and Pro plans.</p>
+          </li>
+          <li>
+            <h3>Is my data private?</h3>
+            <p>Absolutely. We follow industry-standard security practices and never sell your data.</p>
+          </li>
+        </ul>
       </section>
     </main>
 
     <?php include __DIR__ . '/partials/footer.php'; ?>
-
     <script src="js/script.js"></script>
   </body>
 </html>

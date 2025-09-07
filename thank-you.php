@@ -3,7 +3,6 @@
 $title = isset($_GET['title']) ? htmlspecialchars($_GET['title'], ENT_QUOTES) : 'Thank you! 🎉';
 $msg   = isset($_GET['msg'])   ? htmlspecialchars($_GET['msg'], ENT_QUOTES)   : 'Your request has been received.';
 $ref   = isset($_GET['ref'])   ? htmlspecialchars($_GET['ref'], ENT_QUOTES)   : '';
-$back  = isset($_GET['back'])  ? htmlspecialchars($_GET['back'], ENT_QUOTES)  : 'index.html';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +17,7 @@ $back  = isset($_GET['back'])  ? htmlspecialchars($_GET['back'], ENT_QUOTES)  : 
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-      <a href="index.html" class="logo-link" aria-label="LearnLang Academy Home">
+      <a href="index.php" class="logo-link" aria-label="LearnLang Academy Home">
         <img src="images/learnlang-logo.png" alt="LearnLang Academy logo" class="site-logo" />
         <span class="logo-text">LearnLang Academy</span>
       </a>
@@ -33,7 +32,7 @@ $back  = isset($_GET['back'])  ? htmlspecialchars($_GET['back'], ENT_QUOTES)  : 
           <p>Please keep your reference code: <strong><?php echo $ref; ?></strong></p>
         <?php endif; ?>
 
-        <p><a href="<?php echo $back; ?>" class="btn-accent">Back</a></p>
+        <p><a href="index.php" class="btn-accent">Back</a></p>
       </section>
     </main>
 

@@ -28,8 +28,7 @@ $active = 'home'; // highlights "Home" in the nav
             <em>Learn at your own pace — anytime, anywhere.</em>
           </p>
           <p class="cta-row">
-            <a href="courses.html" class="btn btn-primary">Explore Courses</a>
-            <a href="features.html" class="btn btn-ghost">See Features</a>
+            <a href="courses.php" class="btn btn-primary">Explore Courses</a>
           </p>
         </article>
 
@@ -42,40 +41,49 @@ $active = 'home'; // highlights "Home" in the nav
         </figure>
       </section>
 
-      <!-- POPULAR LANGUAGES -->
-      <section aria-labelledby="popular-languages" class="languages">
-        <header>
-          <h2 id="popular-languages">Popular Languages</h2>
-          <p class="section-sub">Start with our most in-demand tracks.</p>
-        </header>
+     <!-- POPULAR LANGUAGES -->
+<section aria-labelledby="popular-languages" class="languages">
+  <header>
+    <h2 id="popular-languages">Popular Languages</h2>
+    <p class="section-sub">Start with our most in-demand tracks.</p>
+  </header>
 
-        <ul class="language-list">
-          <li>
-            <figure>
-              <img src="images/ph.png" alt="Flag of the Philippines" class="flag" />
-              <figcaption>Tagalog</figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="images/au.png" alt="Flag of Australia" class="flag" />
-              <figcaption>English</figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="images/fr.png" alt="Flag of France" class="flag" />
-              <figcaption>French</figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure>
-              <img src="images/de.png" alt="Flag of Germany" class="flag" />
-              <figcaption>German</figcaption>
-            </figure>
-          </li>
-        </ul>
-      </section>
+  <ul class="language-list">
+    <li>
+      <a href="courses.php" class="language-link">
+        <figure>
+          <img src="images/ph.png" alt="Flag of the Philippines" class="flag" />
+          <figcaption>Tagalog</figcaption>
+        </figure>
+      </a>
+    </li>
+    <li>
+      <a href="courses.php" class="language-link">
+        <figure>
+          <img src="images/au.png" alt="Flag of Australia" class="flag" />
+          <figcaption>English</figcaption>
+        </figure>
+      </a>
+    </li>
+    <li>
+      <a href="courses.php" class="language-link">
+        <figure>
+          <img src="images/fr.png" alt="Flag of France" class="flag" />
+          <figcaption>French</figcaption>
+        </figure>
+      </a>
+    </li>
+    <li>
+      <a href="courses.php" class="language-link">
+        <figure>
+          <img src="images/de.png" alt="Flag of Germany" class="flag" />
+          <figcaption>German</figcaption>
+        </figure>
+      </a>
+    </li>
+  </ul>
+</section>
+
 
       <!-- TESTIMONIALS -->
       <section class="testimonials" aria-labelledby="testimonials-title">
