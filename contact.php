@@ -41,7 +41,7 @@ $prefillEmail = $loggedIn ? ($_SESSION['account_email'] ?? '') : '';
           </address>
           <p><strong>Hours</strong> Mon–Fri: 8:30am–5:00pm</p>
           <p><strong>Phone</strong> <a href="tel:+61292833583">(02) 9283 3583</a></p>
-          <p><strong>Email</strong> <a href="mailto:ask@koi.edu.au">ask@koi.edu.au</a></p>
+          <p><strong>Email</strong> <a href="mailto:ask@learnlang.edu.au">ask@learnlang.edu.au</a></p>
         </aside>
 
         <form action="backend/submit_contact.php" method="post" aria-labelledby="form-title">
